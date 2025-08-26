@@ -5,17 +5,17 @@ device: 'cuda' # device to run the model
 sample_size: 512 # number of samples to use for training
 
 exp:
-  name: 'zebrafish_experiment'  # experiment name
+  name: 'weinreb_experiment'  # experiment name
   output_dir: 'results'  # base output directory for all experiments
 
 data:
-  file_path: 'zebrafish_0728.csv' # path to the dataset
-  dim: 52 # data dimension
+  file_path: 'Weinreb_data.csv' # path to the dataset
+  dim: 50 # data dimension
   hold_one_out: false # whether to use leave-one-out for validation
   hold_out: 1 # validation timepoint, does not work if hold_one_out is false
 
 model:
-  in_out_dim: 52 # data dimension
+  in_out_dim: 50 # data dimension
   hidden_dim: 400 # hidden dimension of the model
   n_hiddens: 2 # number of hidden layers of the model
   activation: 'leakyrelu' # activation function of the model
