@@ -5,7 +5,7 @@
 This is the DeepRUOTv2 version of our previously published work [DeepRUOT](https://github.com/zhenyiizhang/DeepRUOT). We have improved the implementation of the original DeepRUOT version, offering a more user-friendly interface and establishing default parameters. We have computed results on more datasets presented in our latest work (https://arxiv.org/abs/2505.11197): Mouse Blood Hematopoiesis (50D), Embryoid Body (50D), Pancreatic $\beta$ -cell differentiation (30D) and  A549 EMT (10D). For detailed implementation, please refer to the case in our latest paper without the interaction term (https://arxiv.org/abs/2505.11197).
 
 
-The following downstram analysis can be conducted:
+The following downstream analysis can be conducted:
 <br />
 <div align="left">
   <a href="https://github.com/zhenyiizhang/DeepRUOTv2/">
