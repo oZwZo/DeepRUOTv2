@@ -5,17 +5,17 @@ device: 'cuda' # device to run the model
 sample_size: 400 # number of samples to use for training
 
 exp:
-  name: 'simulation_data_tigon'  # experiment name
+  name: 'simulation_experiment'  # experiment name
   output_dir: 'results'  # base output directory for all experiments
 
 data:
-  file_path: 'simulation_data_tigon.csv' # path to the dataset
-  dim: 3 # data dimension
+  file_path: 'simulation_gene.csv' # path to the dataset
+  dim: 2 # data dimension
   hold_one_out: false # whether to use leave-one-out for validation
   hold_out: 1 # validation timepoint, does not work if hold_one_out is false
 
 model:
-  in_out_dim: 3 # data dimension
+  in_out_dim: 2 # data dimension
   hidden_dim: 400 # hidden dimension of the model
   n_hiddens: 2 # number of hidden layers of the model
   activation: 'leakyrelu' # activation function of the model
@@ -26,17 +26,17 @@ pretrain:
   lr: 0.0001 # learning rate for pretraining
   lambda_ot: 1.0 # weight for OT loss
   lambda_mass: 0.01 # weight for mass loss
-  lambda_energy: 0.1 # weight for energy loss
+  lambda_energy: 0.0 # weight for energy loss
 
 score_train:
-  epochs: 1001 # number of epochs for score matching
+  epochs: 3001 # number of epochs for score matching
   lr: 0.0001 # learning rate for score matching
   lambda_penalty: 1 # weight for penalty
   sigma: 0.05 # strength of noise
-  score_batch_size: 200 # batch size for score training
+  score_batch_size: 400 # batch size for score training
 
 train:
-  epochs: 500 # number of epochs for final training
+  epochs: 200 # number of epochs for final training
   lr: 0.0001 # learning rate for final training
   lambda_ot: 10 # weight for OT loss
   lambda_mass: 10 # weight for mass loss
