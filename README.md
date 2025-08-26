@@ -5,7 +5,7 @@
 This is the DeepRUOTv2 version of our previously published work [DeepRUOT](https://github.com/zhenyiizhang/DeepRUOT). We have improved the implementation of the original DeepRUOT version, offering a more user-friendly interface and establishing default parameters. We have computed results on more datasets presented in our latest work (https://arxiv.org/abs/2505.11197): Mouse Blood Hematopoiesis (50D), Embryoid Body (50D), Pancreatic $\beta$ -cell differentiation (30D) and  A549 EMT (10D).
 
 
-The following downstream analysis can be conducted:
+The following downstream analysis can be conducted ([view tutorial](https://deepruot.readthedocs.io/en/latest/notebook/analysis.html)):
 <br />
 <div align="left">
   <a href="https://github.com/zhenyiizhang/DeepRUOTv2/">
@@ -20,7 +20,7 @@ If you are interested in further exploring cell-cell interactions from the data,
 * Added a new `use_mass` option to the configuration file. Setting this to `False` disables the growth term.
 * The `sigma` parameter can now be set to `0.0` to disable stochastic effects.
 * The calculated results can now be automatically evaluated.
-* Added a new notebook for downstream analysis at `evaluation/analysis.ipynb` ([view notebook](evaluation/analysis.ipynb)). This script enables more advanced analyses, including data interpolation, inferring fate probabilities, and further gene-level studies. [view tutorial](https://deepruot.readthedocs.io/en/latest/notebook/analysis.html)
+* Added a new notebook for downstream analysis at `evaluation/analysis.ipynb` ([view notebook](evaluation/analysis.ipynb)). This script enables more advanced analyses, including data interpolation, inferring fate probabilities, and further gene-level studies. 
 
 ## Getting Started
 
@@ -79,7 +79,7 @@ python train_RUOT.py --config config/weinreb_config.yaml
 
 ## Evaluation
 
- After training, model checkpoints will be generated in the `results/` directory: `model_final` and `score_final`, which can then be used to inference trajectories. We provide a Jupyter notebook to plot the learned results in `evaluation/plot.ipynb`.
+ After training, model checkpoints will be generated in the `results/` directory: `model_final` and `score_final`, which can then be used to inference trajectories. We provide a Jupyter notebook to plot the learned results in `evaluation/plot.ipynb`. Downstream analysis can be conducted using the provided notebook in `evaluation/analysis.ipynb`.
 
 ## Contact information
 
