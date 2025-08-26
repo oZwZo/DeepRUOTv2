@@ -16,6 +16,12 @@ Results will be presented like this but without interaction (Figure 3 in our [la
 
 If you are interested in further exploring cell-cell interactions from the data, we plan to release the code following the publication of our work.
 
+## Updated (2025/08/26)
+* Added a new `use_mass` option to the configuration file. Setting this to `False` disables the growth term.
+* The `sigma` parameter can now be set to `0.0` to disable stochastic effects.
+* The calculated results can now be automatically evaluated.
+* Added a new Notebook for downstream analysis at `evaluation/analysis.ipynb`. This script enables more advanced analyses, including data interpolation, inferring fate probabilities, and further gene-level studies.
+
 ## Getting Started
 
 1. Clone this repository:
