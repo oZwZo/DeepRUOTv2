@@ -1,11 +1,17 @@
-# DeepRUOTv2
+# DeepRUOTv2 (Dynamical Optimal Transport Tutorials)
 
 **Author**: Zhenyi Zhang, Zihan Wang
 
-This is the DeepRUOTv2 version of our previously published work [DeepRUOT](https://github.com/zhenyiizhang/DeepRUOT). We have improved the implementation of the original DeepRUOT version, offering a more user-friendly interface and establishing default parameters. We have computed results on more datasets presented in our latest work (https://arxiv.org/abs/2505.11197): Mouse Blood Hematopoiesis (50D), Embryoid Body (50D), Pancreatic $\beta$ -cell differentiation (30D) and  A549 EMT (10D).
+This is the DeepRUOTv2 version of our previously published work [DeepRUOT](https://github.com/zhenyiizhang/DeepRUOT). We have improved the implementation of the original DeepRUOT version, offering a more user-friendly interface and establishing default parameters. We have computed results on more datasets presented in our latest work (https://arxiv.org/abs/2505.11197): Mouse Blood Hematopoiesis, Embryoid Body, Pancreatic $\beta$ -cell differentiation and  A549 EMT.
 
+Based on the DeepRUOTv2 framework, we implement a suite of state-of-the-art dynamical optimal transport methods:
 
-The following downstream analysis can be conducted ([view tutorial](https://deepruot.readthedocs.io/en/latest/notebook/analysis.html)):
+- **Dynamical Optimal Transport (OT)**: classical formulation without growth/death processes or stochastic effects.
+- **Unbalanced Dynamical OT**: extension of dynamical OT that accounts for growth and death processes, but without stochastic effects.
+- **Dynamical Schrödinger Bridge (SB)**: stochastic extension of dynamical OT without growth/death.
+- **Regularized Optimal Transport (Unbalanced Schrödinger Bridge)**: general formulation that incorporates both growth/death processes and stochasticity.
+
+Users can flexibly specify the desired model through configuration files to select the appropriate solver for their application. Furthermore, the following downstream analysis can be conducted ([view tutorial](https://deepruot.readthedocs.io/en/latest/notebook/analysis.html)):
 <br />
 <div align="left">
   <a href="https://github.com/zhenyiizhang/DeepRUOTv2/">
