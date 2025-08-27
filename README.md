@@ -22,7 +22,8 @@ Users can flexibly specify the desired model through configuration files to sele
 
 If you are interested in further exploring cell-cell interactions from the data, we plan to release the code following the publication of our work.
 
-## Updated (2025/08/26)
+## Updated
+**(2025/08/26)** We conduct the following updates:
 * Added a new `use_mass` option to the configuration file. Setting this to `False` disables the growth term.
 * The `sigma` parameter can now be set to `0.0` to disable stochastic effects.
 * The calculated results can now be automatically evaluated.
@@ -86,6 +87,49 @@ python train_RUOT.py --config config/weinreb_config.yaml
 ## Evaluation
 
  After training, model checkpoints will be generated in the `results/` directory: `model_final` and `score_final`, which can then be used to inference trajectories. We provide a Jupyter notebook to plot the learned results in `evaluation/plot.ipynb`. Downstream analysis can be conducted using the provided notebook in `evaluation/analysis.ipynb`.
+
+## How to cite
+
+If you find DeepRUOT(v2) useful in your research, please consider citing our work.
+
+DeepRUOT:
+<details>
+<summary>
+Zhang, Z., Li, T., & Zhou, P. (2025). Learning stochastic dynamics from snapshots through regularized unbalanced optimal transport. The Thirteenth International Conference on Learning Representations.
+</summary>
+
+```bibtex
+@inproceedings{
+zhang2025learning,
+title={Learning stochastic dynamics from snapshots through regularized unbalanced optimal transport},
+author={Zhenyi Zhang and Tiejun Li and Peijie Zhou},
+booktitle={The Thirteenth International Conference on Learning Representations},
+year={2025},
+url={https://openreview.net/forum?id=gQlxd3Mtru}
+}
+```
+</details>
+
+\
+Review:
+<details>
+<summary>
+Zhang, Z.; Sun, Y.; Peng, Q.; Li, T.; Zhou, P. Integrating Dynamical Systems Modeling with Spatiotemporal scRNA-Seq Data Analysis. Entropy 2025, 27, 453. https://doi.org/10.3390/e27050453
+
+</summary>
+
+```bibtex
+@inproceedings{
+zhang2025learning,
+title={Learning stochastic dynamics from snapshots through regularized unbalanced optimal transport},
+author={Zhenyi Zhang and Tiejun Li and Peijie Zhou},
+booktitle={The Thirteenth International Conference on Learning Representations},
+year={2025},
+url={https://openreview.net/forum?id=gQlxd3Mtru}
+}
+```
+</details>
+
 
 ## Contact information
 
