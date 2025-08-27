@@ -92,7 +92,7 @@ python train_RUOT.py --config config/weinreb_config.yaml
 
 If you find DeepRUOT(v2) useful in your research, please consider citing our work.
 
-DeepRUOT:
+**DeepRUOT**:
 <details>
 <summary>
 Zhang, Z., Li, T., & Zhou, P. (2025). Learning stochastic dynamics from snapshots through regularized unbalanced optimal transport. The Thirteenth International Conference on Learning Representations.
@@ -110,7 +110,7 @@ url={https://openreview.net/forum?id=gQlxd3Mtru}
 ```
 </details>
 
-Review:
+**Review**:
 <details>
 <summary>
 Zhang, Z.; Sun, Y.; Peng, Q.; Li, T.; Zhou, P. Integrating Dynamical Systems Modeling with Spatiotemporal scRNA-Seq Data Analysis. Entropy 2025, 27, 453. https://doi.org/10.3390/e27050453
