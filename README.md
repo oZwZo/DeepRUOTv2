@@ -118,14 +118,18 @@ Zhang, Z.; Sun, Y.; Peng, Q.; Li, T.; Zhou, P. Integrating Dynamical Systems Mod
 </summary>
 
 ```bibtex
-@inproceedings{
-zhang2025learning,
-title={Learning stochastic dynamics from snapshots through regularized unbalanced optimal transport},
-author={Zhenyi Zhang and Tiejun Li and Peijie Zhou},
-booktitle={The Thirteenth International Conference on Learning Representations},
-year={2025},
-url={https://openreview.net/forum?id=gQlxd3Mtru}
+@Article{ZhangIntegrating2025,
+AUTHOR = {Zhang, Zhenyi and Sun, Yuhao and Peng, Qiangwei and Li, Tiejun and Zhou, Peijie},
+TITLE = {Integrating Dynamical Systems Modeling with Spatiotemporal scRNA-Seq Data Analysis},
+JOURNAL = {Entropy},
+VOLUME = {27},
+YEAR = {2025},
+NUMBER = {5},
+ARTICLE-NUMBER = {453},
+PubMedID = {40422408},
+ISSN = {1099-4300}
 }
+
 ```
 </details>
 
