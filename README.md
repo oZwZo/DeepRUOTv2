@@ -88,11 +88,8 @@ If you encounter any issues while running the code, please feel free to contact 
 Zhenyi Zhang (zhenyizhang@stu.pku.edu.cn)
 
 
-
-
-
 ## License
-DeepRUOTv2 is licensed under the MIT License, and the code from MIOflow used in this project is subject to the Yale Non-Commercial License.
+DeepRUOTv2 is licensed under the MIT License.
 
 ```
 License
