@@ -135,8 +135,7 @@ url={https://openreview.net/forum?id=gQlxd3Mtru}
 
 If you encounter any issues while running the code, please feel free to contact us and we warmly welcome any discussions and suggestions:
 
-Zhenyi Zhang (zhenyizhang@stu.pku.edu.cn)
-
+Zhenyi Zhang (zhenyizhang.math@gmail.com)
 
 ## License
 DeepRUOTv2 is licensed under the MIT License.
