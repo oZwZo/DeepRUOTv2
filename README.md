@@ -1,11 +1,17 @@
-# DeepRUOTv2
+# DeepRUOTv2 (Dynamical Optimal Transport Tools)
 
 **Author**: Zhenyi Zhang, Zihan Wang
 
-This is the DeepRUOTv2 version of our previously published work [DeepRUOT](https://github.com/zhenyiizhang/DeepRUOT). We have improved the implementation of the original DeepRUOT version, offering a more user-friendly interface and establishing default parameters. We have computed results on more datasets presented in our latest work (https://arxiv.org/abs/2505.11197): Mouse Blood Hematopoiesis (50D), Embryoid Body (50D), Pancreatic $\beta$ -cell differentiation (30D) and  A549 EMT (10D).
+This is the DeepRUOTv2 version of our previously published work [DeepRUOT](https://github.com/zhenyiizhang/DeepRUOT). We have improved the implementation of the original DeepRUOT version, offering a more user-friendly interface and establishing default parameters. We have computed results on more datasets presented in our latest work (https://arxiv.org/abs/2505.11197): Mouse Blood Hematopoiesis, Embryoid Body, Pancreatic $\beta$ -cell differentiation and  A549 EMT.
 
+Based on the DeepRUOTv2 framework, we implement a suite of dynamical optimal transport methods:
 
-The following downstream analysis can be conducted ([view tutorial](https://deepruot.readthedocs.io/en/latest/notebook/analysis.html)):
+- **Dynamical Optimal Transport (OT)**: classical formulation without growth/death processes or stochastic effects.
+- **Unbalanced Dynamical OT**: extension of dynamical OT that accounts for growth and death processes, but without stochastic effects.
+- **Dynamical Schrödinger Bridge (SB)**: stochastic extension of dynamical OT without growth/death.
+- **Regularized Unbalanced Optimal Transport (Unbalanced Schrödinger Bridge)**: general formulation that incorporates both growth/death processes and stochasticity.
+
+Users can flexibly specify the desired model through configuration files to select the appropriate solver for their application. Furthermore, the following downstream analysis can be conducted ([view tutorial](https://deepruot.readthedocs.io/en/latest/notebook/analysis.html)):
 <br />
 <div align="left">
   <a href="https://github.com/zhenyiizhang/DeepRUOTv2/">
@@ -16,7 +22,8 @@ The following downstream analysis can be conducted ([view tutorial](https://deep
 
 If you are interested in further exploring cell-cell interactions from the data, we plan to release the code following the publication of our work.
 
-## Updated (2025/08/26)
+## Updated
+**(2025/08/26)** We conduct the following updates:
 * Added a new `use_mass` option to the configuration file. Setting this to `False` disables the growth term.
 * The `sigma` parameter can now be set to `0.0` to disable stochastic effects.
 * The calculated results can now be automatically evaluated.
@@ -81,18 +88,60 @@ python train_RUOT.py --config config/weinreb_config.yaml
 
  After training, model checkpoints will be generated in the `results/` directory: `model_final` and `score_final`, which can then be used to inference trajectories. We provide a Jupyter notebook to plot the learned results in `evaluation/plot.ipynb`. Downstream analysis can be conducted using the provided notebook in `evaluation/analysis.ipynb`.
 
+## How to cite
+
+If you find DeepRUOT(v2) useful in your research, please consider citing our work.
+
+**DeepRUOT**:
+<details>
+<summary>
+Zhang, Z., Li, T., & Zhou, P. (2025). Learning stochastic dynamics from snapshots through regularized unbalanced optimal transport. The Thirteenth International Conference on Learning Representations.
+</summary>
+
+```bibtex
+@inproceedings{
+zhang2025learning,
+title={Learning stochastic dynamics from snapshots through regularized unbalanced optimal transport},
+author={Zhenyi Zhang and Tiejun Li and Peijie Zhou},
+booktitle={The Thirteenth International Conference on Learning Representations},
+year={2025},
+url={https://openreview.net/forum?id=gQlxd3Mtru}
+}
+```
+</details>
+
+**Review**:
+<details>
+<summary>
+Zhang, Z.; Sun, Y.; Peng, Q.; Li, T.; Zhou, P. Integrating Dynamical Systems Modeling with Spatiotemporal scRNA-Seq Data Analysis. Entropy 2025, 27, 453. https://doi.org/10.3390/e27050453
+
+</summary>
+
+```bibtex
+@Article{ZhangIntegrating2025,
+AUTHOR = {Zhang, Zhenyi and Sun, Yuhao and Peng, Qiangwei and Li, Tiejun and Zhou, Peijie},
+TITLE = {Integrating Dynamical Systems Modeling with Spatiotemporal scRNA-Seq Data Analysis},
+JOURNAL = {Entropy},
+VOLUME = {27},
+YEAR = {2025},
+NUMBER = {5},
+ARTICLE-NUMBER = {453},
+PubMedID = {40422408},
+ISSN = {1099-4300}
+}
+
+```
+</details>
+
+
 ## Contact information
 
 If you encounter any issues while running the code, please feel free to contact us and we warmly welcome any discussions and suggestions:
 
-Zhenyi Zhang (zhenyizhang@stu.pku.edu.cn)
-
-
-
-
+Zhenyi Zhang (zhenyizhang.math@gmail.com)
 
 ## License
-DeepRUOTv2 is licensed under the MIT License, and the code from MIOflow used in this project is subject to the Yale Non-Commercial License.
+DeepRUOTv2 is licensed under the MIT License.
 
 ```
 License
@@ -116,7 +165,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-The code from MIOflow used in this project is subject to the Yale Non-Commercial License.
-
 ```
