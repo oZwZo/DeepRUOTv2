@@ -20,7 +20,7 @@ If you are interested in further exploring cell-cell interactions from the data,
 * Added a new `use_mass` option to the configuration file. Setting this to `False` disables the growth term.
 * The `sigma` parameter can now be set to `0.0` to disable stochastic effects.
 * The calculated results can now be automatically evaluated.
-* Added a new notebook for downstream analysis at `evaluation/analysis.ipynb` ([view notebook](evaluation/analysis.ipynb)). This script enables more advanced analyses, including data interpolation, inferring fate probabilities, and further gene-level studies. 
+* Added a new notebook for downstream analysis at `evaluation/analysis.ipynb` ([view notebook](evaluation/analysis.ipynb)). This script enables more advanced analyses, including data interpolation, inferring fate probabilities, and further gene-level studies. Raw data containing cell type and gene level information is required to perform these downstream analysis, sample data is provided in the following link. [view sample data](https://drive.google.com/drive/folders/1s2_hsS7WHVo03S4wgrn-w66iBtZPfdpS)
 
 ## Getting Started
 
