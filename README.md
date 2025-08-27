@@ -1,4 +1,4 @@
-# DeepRUOTv2 (Dynamical Optimal Transport Tutorials)
+# DeepRUOTv2 (Dynamical Optimal Transport Tools)
 
 **Author**: Zhenyi Zhang, Zihan Wang
 
