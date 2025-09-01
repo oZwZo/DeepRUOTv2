@@ -3,6 +3,7 @@ use_pinn: false # whether to use PINN to refine the score network, if set to fal
 sample_with_replacement: false # Whether or not to sample with replacement.
 device: 'cuda' # device to run the model
 sample_size: 400 # number of samples to use for training
+use_mass: true # whether to use the growth term
 
 exp:
   name: 'simulation_experiment'  # experiment name
