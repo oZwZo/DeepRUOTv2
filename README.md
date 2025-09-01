@@ -70,7 +70,7 @@ model:
   in_out_dim: 50 # Data dimension
 ```
 
-For other hyperparameters, we recommend using the same settings as `config/weinreb_config.yaml`. Note that the default setting for the hyperparameter `use_pinn`, which controls whether to update the score model in the final training phase, is set to False. Setting it to True may achieve better performance but will significantly increase training time. For more efficient training, we recommend setting it to False. If you encounter  `CUDA out of memory` error, you may set the parameters `sample_size` and `score_batch_size` to smaller values.
+For other hyperparameters, we recommend using the same settings as `config/weinreb_config.yaml`. Note that the default setting for the hyperparameter `use_pinn`, which controls whether to update the score model in the final training phase, is set to False. Setting it to True may achieve better performance but will significantly increase training time. For more efficient training, we recommend setting it to False. The hyperparameter `use_mass` controls whether the growth term is used, and its default value is set to True. If you encounter  `CUDA out of memory` error, you may set the parameters `sample_size` and `score_batch_size` to smaller values. 
 
 For training, simply specify the path to your configuration file, and run  `train_RUOT.py`:
 
@@ -86,7 +86,7 @@ python train_RUOT.py --config config/weinreb_config.yaml
 
 ## Evaluation
 
- After training, model checkpoints will be generated in the `results/` directory: `model_final` and `score_final`, which can then be used to inference trajectories. We provide a Jupyter notebook to plot the learned results in `evaluation/plot.ipynb`. Downstream analysis can be conducted using the provided notebook in `evaluation/analysis.ipynb` ([view tutorial](https://deepruot.readthedocs.io/en/latest/notebook/analysis.html)).
+ After training, the performance of distribution matching and mass matching will be automatically evaluated using $\mathbf{W}_1$ and $TMV$ (https://arxiv.org/abs/2505.11197). Model checkpoints will be generated in the `results/` directory: `model_final` and `score_final`, which can then be used to inference trajectories. We provide a Jupyter notebook to plot the learned results in `evaluation/plot.ipynb`. Downstream analysis can be conducted using the provided notebook in `evaluation/analysis.ipynb` ([view tutorial](https://deepruot.readthedocs.io/en/latest/notebook/analysis.html)).
 
 ## How to cite
 
