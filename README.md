@@ -112,7 +112,7 @@ Additional related papers may be cited as needed.
 
 If you encounter any issues while running the code, please feel free to contact us and we warmly welcome any discussions and suggestions:
 
-Zhenyi Zhang (zhenyizhang.math@gmail.com)
+Zhenyi Zhang (zhenyizhang@stu.pku.edu.cn)
 
 ## License
 DeepRUOTv2 is licensed under the MIT License.
