@@ -1,0 +1,53 @@
+# Runtime parameters
+device: 'cuda'
+use_pinn: true
+use_mass: true
+sample_with_replacement: false
+sample_size: 512
+
+exp:
+  name: 'klein_dm10'
+  output_dir: 'results'
+
+data:
+  file_path: 'klein/klein_dm10_train.csv'
+  dim: 10
+  hold_one_out: false
+  pop_mean: null  # adata.uns['pop']['mean'] for Day 2, 4, 6
+
+model:
+  in_out_dim: 10
+  hidden_dim: 400
+  n_hiddens: 2
+  activation: 'leakyrelu'
+  score_hidden_dim: 128
+
+pretrain:
+  epochs: 500
+  lr: 0.0001
+  lambda_ot: 1.0
+  lambda_mass: 0.01
+  lambda_energy: 0.0
+
+score_train:
+  epochs: 3001
+  lr: 0.0001
+  lambda_penalty: 1
+  sigma: 0.1
+  score_batch_size: 256
+
+train:
+  epochs: 500
+  lr: 0.0001
+  lambda_ot: 10
+  lambda_mass: 10
+  lambda_energy: 0.01
+  lambda_pinn: 100
+  lambda_initial: 0.1
+  scheduler_step_size: 100
+  scheduler_gamma: 0.8
+
+eval:
+  n_points: 100
+  n_trajectories: 30
+  n_bins: 100
