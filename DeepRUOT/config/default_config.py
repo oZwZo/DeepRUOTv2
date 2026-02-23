@@ -120,6 +120,13 @@ CONFIG_SPEC = {
             default=True,
             type=bool,
             help="Whether or not to randomly hold one time pair out when computing the global loss"
+        ),
+        "pop_mean": ConfigParam(
+            default=None,
+            type=Optional[List],
+            help="Actual cell population counts per timepoint [N_t0, N_t1, ...]. "
+                 "If provided, overrides CSV-count-based relative_mass for mass loss. "
+                 "Must be ordered by timepoint index (same order as samples column)."
         )
     },
 
