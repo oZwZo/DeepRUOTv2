@@ -30,3 +30,11 @@ for name, (obsm_key, dim) in representations.items():
         df['samples'] = df['samples'].astype(int)
         df.to_csv(out_dir / f'{name}_{split}.csv', index=False)
         print(f"Saved {name}_{split}.csv: {df.shape}")
+
+# Print pop_mean for use in config YAMLs
+print("\n=== Population mean counts (adata.uns['pop']['mean']) ===")
+pop_mean = adata.uns['pop']['mean']
+print(f"Timepoints (samples index): {sorted(adata.obs['samples'].unique().tolist())}")
+print(f"Raw values: {pop_mean.tolist()}")
+print(f"\nAdd to each klein config YAML under 'data:':")
+print(f"  pop_mean: {pop_mean.tolist()}")
