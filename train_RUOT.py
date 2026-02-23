@@ -30,15 +30,16 @@ from DeepRUOT.exp import setup_exp
 from DeepRUOT.eval import generate_trajectories_sde
 
 class TrainingPipeline:
-    def __init__(self, config):
+    def __init__(self, config, resume_dir=None):
         self.config = config
         self.device = torch.device(config['device'])
         self.exp_dir = None
         self.logger = None
-        
+        self.resume_dir = resume_dir
+
         # Initialize experiment directory and logger
         self._setup_experiment()
-        
+
         # Initialize models and data
         self.f_net = None
         self.sf2m_score_model = None
@@ -47,19 +48,34 @@ class TrainingPipeline:
         self.steps = None
         self.relative_mass = None
         self.initial_size = None
-        
+
         self._setup_models()
         self._load_data()
         self._setup_training()
 
     def _setup_experiment(self):
         """Setup experiment directory and logger"""
-        self.exp_dir, self.logger = setup_exp(
-            self.config['exp']['output_dir'], 
-            self.config, 
-            self.config['exp']['name']
-        )
-        self.logger.info(f'Starting experiment in {self.exp_dir}')
+        if self.resume_dir:
+            import logging
+            self.exp_dir = self.resume_dir
+            basename = os.path.basename(os.path.abspath(self.resume_dir))
+            self.logger = logging.getLogger(basename)
+            handler = logging.FileHandler(
+                os.path.join(self.exp_dir, 'log.txt'), mode='a', encoding='utf-8'
+            )
+            handler.setFormatter(logging.Formatter(
+                '%(asctime)s\t%(levelname)s:%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p'
+            ))
+            self.logger.addHandler(handler)
+            self.logger.setLevel(logging.DEBUG)
+            self.logger.info(f'Resuming experiment from {self.exp_dir}')
+        else:
+            self.exp_dir, self.logger = setup_exp(
+                self.config['exp']['output_dir'],
+                self.config,
+                self.config['exp']['name']
+            )
+            self.logger.info(f'Starting experiment in {self.exp_dir}')
 
     def _setup_models(self):
         """Initialize neural network models"""
@@ -264,11 +280,25 @@ class TrainingPipeline:
         if best_state_dict is not None:
             torch.save(best_state_dict, os.path.join(self.exp_dir, 'score_model'))
 
-    def final_training(self):
+    def final_training(self, prefer_intermediate=False):
         """Phase 3: Final training phase"""
         self.logger.info('Final training phase')
-        self.sf2m_score_model.load_state_dict(torch.load(os.path.join(self.exp_dir, 'score_model'), map_location=self.device))
-        self.f_net.load_state_dict(torch.load(os.path.join(self.exp_dir, 'best_model'), map_location=self.device))
+
+        # When resuming, prefer intermediate best-OT checkpoints saved during a prior run
+        f_net_path = os.path.join(self.exp_dir, 'best_model')
+        score_path = os.path.join(self.exp_dir, 'score_model')
+        if prefer_intermediate:
+            intermediate_f = os.path.join(self.exp_dir, 'model_result')
+            intermediate_s = os.path.join(self.exp_dir, 'score_model_result')
+            if os.path.exists(intermediate_f):
+                f_net_path = intermediate_f
+                self.logger.info('Resume: loading f_net from model_result (best intermediate checkpoint)')
+            if os.path.exists(intermediate_s):
+                score_path = intermediate_s
+                self.logger.info('Resume: loading score model from score_model_result (best intermediate checkpoint)')
+
+        self.sf2m_score_model.load_state_dict(torch.load(score_path, map_location=self.device))
+        self.f_net.load_state_dict(torch.load(f_net_path, map_location=self.device))
         
         optimizer = torch.optim.Adam(
             list(self.f_net.parameters()) + list(self.sf2m_score_model.parameters()),
@@ -351,6 +381,35 @@ class TrainingPipeline:
         else:
             os.rename(os.path.join(self.exp_dir, 'score_model'), os.path.join(self.exp_dir, 'score_model_final'))
 
+    def resume(self):
+        """Resume training from an existing experiment directory, skipping completed phases."""
+        best_model_path   = os.path.join(self.exp_dir, 'best_model')
+        score_model_path  = os.path.join(self.exp_dir, 'score_model')
+        model_final_path  = os.path.join(self.exp_dir, 'model_final')
+
+        if os.path.exists(model_final_path):
+            self.logger.info('All phases already complete — skipping to evaluate.')
+            return None, None
+
+        pretrain_losses = None
+        if not os.path.exists(best_model_path):
+            self.logger.info('Phase 1 (pretrain) not found — running pretrain.')
+            pretrain_losses = self.pretrain()
+        else:
+            self.logger.info('Phase 1 (pretrain) already complete — skipping.')
+
+        if not os.path.exists(score_model_path):
+            self.logger.info('Phase 2 (score training) not found — running score training.')
+            self.train_score_model()
+        else:
+            self.logger.info('Phase 2 (score training) already complete — skipping.')
+
+        self.logger.info('Phase 3 (final training) incomplete — resuming from best intermediate checkpoint.')
+        final_losses = self.final_training(prefer_intermediate=True)
+
+        self.clean_up()
+        return pretrain_losses, final_losses
+
     def train(self):
         """Run complete training pipeline"""
         # Phase 1: Pretrain
@@ -358,13 +417,13 @@ class TrainingPipeline:
 
         # Phase 2: Train score model
         self.train_score_model()
-        
+
         # Phase 3: Final training
         final_losses = self.final_training()
 
         # Clean up
         self.clean_up()
-        
+
         return pretrain_losses, final_losses
     
     def evaluate(self):
@@ -406,14 +465,22 @@ class TrainingPipeline:
 def main():
     parser = argparse.ArgumentParser(description='Train DeepRUOT model')
     parser.add_argument('--config', type=str, required=True, help='Path to config file')
+    parser.add_argument(
+        '--resume', type=str, default=None, metavar='EXP_DIR',
+        help='Resume training from an existing experiment directory. '
+             'Phases whose output files already exist (best_model, score_model, model_final) are skipped.'
+    )
     args = parser.parse_args()
-    
+
     # Load and merge configuration
     config = load_and_merge_config(args.config)
-    
+
     # Create and run training pipeline
-    pipeline = TrainingPipeline(config)
-    pretrain_losses, final_losses = pipeline.train()
+    pipeline = TrainingPipeline(config, resume_dir=args.resume)
+    if args.resume:
+        pretrain_losses, final_losses = pipeline.resume()
+    else:
+        pretrain_losses, final_losses = pipeline.train()
     evaluate_results = pipeline.evaluate()
     print(evaluate_results)
 
