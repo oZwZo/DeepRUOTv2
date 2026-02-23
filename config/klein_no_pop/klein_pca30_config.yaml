@@ -3,20 +3,20 @@ device: 'cuda'
 use_pinn: true
 use_mass: true
 sample_with_replacement: false
-sample_size: 512
+sample_size: 1024
 
 exp:
-  name: 'klein_dm10'
+  name: 'klein_pca30'
   output_dir: 'results'
 
 data:
-  file_path: 'klein/klein_dm10_train.csv'
-  dim: 10
+  file_path: 'klein/klein_pca30_train.csv'
+  dim: 30
   hold_one_out: false
-  pop_mean: [24000, 30000, 36000]  # adata.uns['pop']['mean'] for Day 2, 4, 6
+  pop_mean: null  # adata.uns['pop']['mean'] for Day 2, 4, 6 # set to null if not using sequenced cell count
 
 model:
-  in_out_dim: 10
+  in_out_dim: 30
   hidden_dim: 400
   n_hiddens: 2
   activation: 'leakyrelu'
@@ -34,7 +34,7 @@ score_train:
   lr: 0.0001
   lambda_penalty: 1
   sigma: 0.1
-  score_batch_size: 256
+  score_batch_size: 512
 
 train:
   epochs: 500

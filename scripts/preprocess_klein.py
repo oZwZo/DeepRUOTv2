@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-adata = ad.read_h5ad('data/klein/klein_subset.h5ad')
+adata = ad.read_h5ad('/rds/user/wz369/hpc-work/pseudodynamics_plus/data/klein/klein_addpop.h5ad')
 
 # Map timepoints 2.0 → 0, 4.0 → 1, 6.0 → 2
 tp_map = {2.0: 0, 4.0: 1, 6.0: 2}
