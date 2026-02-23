@@ -13,6 +13,7 @@ data:
   file_path: 'klein/klein_dm10_train.csv'
   dim: 10
   hold_one_out: false
+  pop_mean: [24000, 30000, 36000]  # adata.uns['pop']['mean'] for Day 2, 4, 6
 
 model:
   in_out_dim: 10

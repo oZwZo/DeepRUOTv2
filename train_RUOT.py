@@ -87,20 +87,28 @@ class TrainingPipeline:
         """Setup training parameters"""
         self.groups = sorted(self.df.samples.unique())
         self.steps = generate_steps(self.groups)
-        
+
         hold_one_out = self.config['data']['hold_one_out']
         hold_out = self.config['data']['hold_out']
-        
-        if hold_one_out:
-            df_mass = self.df[self.df['samples'] != hold_out]
-            sample_sizes = df_mass.groupby('samples').size()
+        pop_mean = self.config['data'].get('pop_mean', None)
+
+        if pop_mean is not None:
+            # Use externally-provided true cell counts (ordered by timepoint index)
+            pop_mean_arr = np.array(pop_mean, dtype=np.float32)
+            ref0 = pop_mean_arr / pop_mean_arr[0]
+            self.logger.info(f'Using pop_mean for relative_mass: {pop_mean_arr.tolist()}')
+            self.logger.info(f'Derived relative_mass: {ref0.tolist()}')
         else:
-            sample_sizes = self.df.groupby('samples').size()
-        
-        ref0 = sample_sizes / sample_sizes.iloc[0]
-        self.relative_mass = torch.tensor(ref0.values, dtype=torch.float32)
-        self.relative_mass = self.relative_mass.to(self.device)
-        
+            # Fallback: use observed CSV cell counts
+            if hold_one_out:
+                df_mass = self.df[self.df['samples'] != hold_out]
+                sample_sizes = df_mass.groupby('samples').size()
+            else:
+                sample_sizes = self.df.groupby('samples').size()
+            ref0 = sample_sizes.values / sample_sizes.iloc[0]
+            self.logger.info(f'Using CSV cell counts for relative_mass: {sample_sizes.tolist()}')
+
+        self.relative_mass = torch.tensor(ref0, dtype=torch.float32).to(self.device)
         self.initial_size = self.df[self.df['samples']==0].x1.shape[0]
 
     def pretrain(self):
